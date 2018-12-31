@@ -56,7 +56,7 @@ function promptPurchase() {
       // console.log(inquirerResponse.quantity);
 
       var item = inquirerResponse.product;
-      var query = "SELECT * FROM products WHERE product_name='" + inquirerResponse.product + "'";
+      var query = "SELECT * FROM products WHERE product_name='" + item + "'";
       var amt = parseInt(inquirerResponse.quantity);
 
       connection.query(query, function (err, res) {
