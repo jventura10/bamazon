@@ -52,54 +52,56 @@ function promptPurchase() {
         name: "quantity"
       }
     ]).then(function (inquirerResponse) {
-      // console.log(inquirerResponse.product);
-      // console.log(inquirerResponse.quantity);
-
       var item = inquirerResponse.product;
-      var query = "SELECT * FROM products WHERE product_name='" + item + "'";
+      var theQuery = "SELECT * FROM products WHERE product_name='" + item + "' LIMIT 1";
       var amt = parseInt(inquirerResponse.quantity);
 
-      connection.query(query, function (err, res) {
+      // console.log(item);
+      // console.log(theQuery);
+
+      connection.query(theQuery, function (err, res) {
         if (err) throw err;
 
         var stock = res[0].stock_quantity;
         var price=res[0].price;
         var total=amt*price;
-
-        // Log all results of the SELECT statement
-        //console.log(res);
+        var ctSales=res[0].product_sales;
 
         if (stock > amt) {
-          updateProduct(item, stock, amt, total);
+          updateProduct(item, stock, amt, total,ctSales);
         }
         else {
           console.log("Insufficient quantity to Fulfill Order! Try Purchasing Different Amount");
         }
 
-        connection.end();
       }); //Connection Query End
       
     }); //Inquirer THEN Function End
 }
 
-function updateProduct(name, x, y,z) {
+function updateProduct(name, x, y,z,s) {
   var newAmt=x-y;
+  var nwSales=s+z;
 
   connection.query(
     "UPDATE products SET ? WHERE ?",
     [
       {
-        stock_quantity: newAmt
+        stock_quantity: newAmt,
+        product_sales: nwSales
       },
       {
         product_name: name
       }
     ],
     function (err, res) {
-      console.log(res.affectedRows + " product(s) updated!\n");
-      console.log("Thank you for Your Purchase! Total: "+z);
+      console.log("Thank you for Your Purchase! Total: $"+z);
+
+      connection.end();
     }
   );
 
 }
+
+
 showProducts();

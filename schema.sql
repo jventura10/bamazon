@@ -11,3 +11,9 @@ CREATE TABLE products(
     PRIMARY KEY(item_id)
 );
 
+CREATE TABLE departments(
+    department_id INT AUTO_INCREMENT,
+    department_name VARCHAR(50) NOT NULL,
+    over_head_costs INT NOT NULL
+    PRIMARY KEY(department_id)
+);
