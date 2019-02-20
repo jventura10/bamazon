@@ -1,97 +1,36 @@
 # bamazon
 
+Bamazon is a NodeJS Command Line Mock Store with three parts in it: manager,supervisor,and customer. 
 
-In this activity, you'll be creating an Amazon-like storefront with the MySQL skills you learned this unit. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
+Each file or part has different functionality but affecting the same mySQL database that includes 
+inventory, prices, top selling departments.
 
-Make sure you save and require the MySQL and Inquirer npm packages in your homework files--your app will need them for data input and storage.
+NodeJS allows for javascript code to dictate functionality and a connection to the database.
 
-PART 1:
--------------------
-Create a MySQL Database called bamazon.
-Then create a Table inside of that database called products.
-The products table should have each of the following columns:
+To run the code, clone the repository and move into the correct directory from the terminal.
 
+Install all packages with: npm install or npm i
 
+And then run: node FILENAME
 
-item_id (unique id for each product)
-product_name (Name of product)
-department_name
-price (cost to customer)
-stock_quantity (how much of the product is available in stores)
+the FILENAME will be any of the three bamazon files in the repository, depending on which is meant to be ran.
 
+The database will have to created before running or no merchandise will be shown.
 
+For the first time running customer file, there must be merchandise initialized in database table, see schema.sql 
+or run manager to add inventory if database and tables exist.
 
-Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
-Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
-The app should then prompt users with two messages.
+From the packages installed mysql is used to establish a connection to the mySQL database I use. Inquirer is 
+used to quickly prompt for user actions and table to output data in a table if appropriate.
 
+Example of Customer File:
 
+![Customer Example](/images/customer.gif)
 
-The first should ask them the ID of the product they would like to buy.
-The second message should ask how many units of the product they would like to buy.
+Example of Supervisor File:
 
+![Supervisor Example](/images/supervisor.gif)
 
+Example of Manager File:
 
-Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-
-
-
-If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
-
-
-
-However, if your store does have enough of the product, you should fulfill the customer's order.
-
-
-This means updating the SQL database to reflect the remaining quantity.
-Once the update goes through, show the customer the total cost of their purchase.
-
-
-PART 2:
--------------------
-Create a new Node application called bamazonManager.js. Running this application will:
-
-
-List a set of menu options:
-View Products for Sale
-View Low Inventory
-Add to Inventory
-Add New Product
-If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
-If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
-If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
-
-PART 3:
--------------------
-Create a new MySQL table called departments. Your table should include the following columns:
-
-
-
-department_id
-department_name
-over_head_costs (A dummy number you set for each department)
-
-
-
-Modify the products table so that there's a product_sales column, and modify your bamazonCustomer.js app so that when a customer purchases anything from the store, the price of the product multiplied by the quantity purchased is added to the product's product_sales column.
-
-
-
-Make sure your app still updates the inventory listed in the products column.
-
-
-
-Create another Node app called bamazonSupervisor.js. Running this application will list a set of menu options:
-
-
-
-View Product Sales by Department
-Create New Department
-
-
-
-When a supervisor selects View Product Sales by Department, the app should display a summarized table in their terminal/bash window. 
-
-
-The total_profit column should be calculated on the fly using the difference between over_head_costs and product_sales. total_profit should not be stored in any database. You should use a custom alias.
+![Manager Example](/images/manager.gif)
